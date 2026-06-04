@@ -2,10 +2,53 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type HelloWorldModel {
-  value: String!
+type User {
+  id: ID!
+  email: String!
+  posts: [PostModel!]
+  password: String!
+}
+
+type PostModel {
+  id: ID!
+  title: String!
+  body: String!
+  author: User!
+  authorId: ID!
+}
+
+type AuthPayload {
+  accessToken: String!
 }
 
 type Query {
-  sayHello: HelloWorldModel!
+  getPostsByUser(id: Float!): [PostModel!]!
+  getUsers: [User!]!
+}
+
+type Mutation {
+  createPost(createPostInput: CreatePostInput!): PostModel!
+  deletePost(id: ID!): Boolean!
+  createUser(createUserInput: CreateUserInput!): User!
+  signup(signupInput: CreateUserInput!): AuthPayload!
+  login(loginInput: LoginInput!): AuthPayload!
+}
+
+input CreatePostInput {
+  title: String!
+  body: String!
+}
+
+input CreateUserInput {
+  email: String!
+  password: String!
+}
+
+input LoginInput {
+  email: String!
+  password: String!
+}
+
+type Subscription {
+  postCreated: PostModel!
 }

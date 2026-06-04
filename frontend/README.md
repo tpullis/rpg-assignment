@@ -1,48 +1,50 @@
-# frontend
+# Frontend — Blog (Vue 3 + Vite)
 
-This template should help get you started developing with Vue 3 in Vite.
+A simple blog UI: browse users, read a user's posts (newest first), sign up / log
+in, create posts, delete your own, and get a real-time banner when anyone posts.
 
-## Recommended IDE Setup
+**Stack:** Vue 3 (`<script setup>` + TypeScript), Vite, Vue Router, Apollo Client
+(`@vue/apollo-composable`) over GraphQL — queries/mutations on HTTP, the
+`postCreated` subscription over WebSocket (`graphql-ws`).
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+## Prerequisites
 
-## Recommended Browser Setup
+- Node.js `^20.19` or `>=22.12`
+- The **backend running on `http://localhost:3200`** (see [`../backend/README.md`](../backend/README.md)).
+  Optionally run `yarn seed` in `backend/` first to load demo users + posts.
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd) 
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
-
-## Type Support for `.vue` Imports in TS
-
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
+## Quick start
 
 ```sh
-yarn
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
+yarn install
 yarn dev
 ```
 
-### Type-Check, Compile and Minify for Production
+Open the printed URL (default **http://localhost:5173**). The GraphQL endpoint is
+hardcoded to `localhost:3200` in [`src/apollo.ts`](./src/apollo.ts).
 
-```sh
-yarn build
+## Scripts
+
+| Command | What it does |
+| --- | --- |
+| `yarn dev` | Start the dev server with hot reload |
+| `yarn build` | Type-check and build for production into `dist/` |
+| `yarn preview` | Preview the production build |
+| `yarn test` | Run unit tests (Vitest) |
+| `yarn type-check` | Type-check with `vue-tsc` |
+| `yarn lint` | Lint and auto-fix with ESLint |
+
+## Project layout
+
+```
+src/
+  apollo.ts        Apollo client: HTTP+auth link / WebSocket split
+  graphql/         GraphQL query, mutation & subscription documents
+  composables/     useAuth, banner state, postCreated subscription
+  components/       header, modals, cards, post item, banner
+  views/           HomeView (users), UserPostsView (a user's posts)
+  utils/           post sorting helper
 ```
 
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-yarn lint
-```
+> Uses **Yarn** (`yarn.lock`). Auth tokens are stored in `localStorage`;
+> log in to create posts. You can only delete your own posts.
