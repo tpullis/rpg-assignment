@@ -7,8 +7,15 @@ import type { Post } from '../types'
 // Subscribes to postCreated and pushes each new post into the banner slot.
 // Call once, at the app root.
 export function usePostCreatedSubscription() {
-  const { result } = useSubscription(POST_CREATED)
+  const { result, error, restart } = useSubscription(POST_CREATED)
   const { show } = useNewPostBanner()
+
+  watch(error, (newError) => {
+    if (newError) {
+      console.warn('Subscription error encountered, restarting...')
+      restart()
+    }
+  })
 
   watch(result, (data) => {
     const post = (data as { postCreated?: Post } | null)?.postCreated
