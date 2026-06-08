@@ -5,7 +5,7 @@ See [`API.md`](./API.md) for the full API reference.
 
 ## Prerequisites
 
-- Node.js 18+ and npm
+- Node.js 18+ and yarn
 - PostgreSQL running locally
 - (Optional) Redis — only needed for multi-instance real-time notifications
 
@@ -33,8 +33,8 @@ created automatically on startup (`synchronize: true`), so no migrations needed.
 ## 2. Install & run
 
 ```bash
-npm install
-npm run start:dev
+yarn install
+yarn start:dev
 ```
 
 GraphQL endpoint + sandbox: **http://localhost:3200/graphql**
@@ -42,7 +42,7 @@ GraphQL endpoint + sandbox: **http://localhost:3200/graphql**
 ## 3. Tests
 
 ```bash
-npm test
+yarn test
 ```
 
 ## 4. Example request
@@ -92,5 +92,5 @@ To fan out across multiple instances, run Redis and set `REDIS_HOST`:
 
 ```bash
 brew install redis && brew services start redis   # or: docker run -d -p 6379:6379 redis
-REDIS_HOST=localhost npm run start:dev
+REDIS_HOST=localhost yarn start:dev
 ```

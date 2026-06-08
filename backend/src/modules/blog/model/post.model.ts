@@ -3,6 +3,7 @@ import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
+  CreateDateColumn,
   ManyToOne,
   RelationId,
 } from 'typeorm';
@@ -34,4 +35,7 @@ export class PostModel {
   @Field(() => ID)
   @RelationId((post: PostModel) => post.author)
   authorId: number;
+
+  @CreateDateColumn({ type: 'timestamp' })
+  createdAt: Date;
 }
