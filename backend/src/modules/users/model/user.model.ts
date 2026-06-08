@@ -1,5 +1,11 @@
 import { ObjectType, Field, ID } from '@nestjs/graphql';
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  Column,
+  OneToMany,
+} from 'typeorm';
 import { PostModel } from '../../blog/model/post.model';
 
 @ObjectType()
@@ -20,4 +26,7 @@ export class User {
   @Field(() => [PostModel], { nullable: true })
   @OneToMany(() => PostModel, (post) => post.author)
   posts: PostModel[];
+
+  @CreateDateColumn({ type: 'timestamp' })
+  createdAt: Date;
 }
