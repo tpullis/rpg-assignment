@@ -22,6 +22,15 @@ export class BlogService {
     return allPosts;
   }
 
+  async getTimelineView(): Promise<PostModel[]> {
+    const posts = await this.postModelRepository.find({
+      take: 10,
+      order: { createdAt: 'DESC' },
+    });
+
+    return posts;
+  }
+
   async createPost(post: CreatePostInput, authorId: number) {
     const newPost = this.postModelRepository.create({
       ...post,

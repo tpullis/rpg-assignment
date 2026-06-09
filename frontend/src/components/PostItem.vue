@@ -17,8 +17,6 @@ async function onDelete() {
     await deletePost({ id: props.post.id })
     emit('deleted')
   } catch (e) {
-    // Until the backend implements deletePost this will error — surface it and
-    // leave the post in place (no optimistic removal).
     errorMessage.value = (e as Error).message
   }
 }

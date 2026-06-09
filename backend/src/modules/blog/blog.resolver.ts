@@ -64,4 +64,9 @@ export class BlogResolver {
     // ID scalars arrive as strings; the column is a numeric primary key.
     return this.blogService.deletePost(Number(id), user.userId);
   }
+
+  @Query(() => [PostModel])
+  async fetchTimeline(): Promise<PostModel[]> {
+    return this.blogService.getTimelineView();
+  }
 }
