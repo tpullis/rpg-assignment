@@ -30,6 +30,7 @@ type AuthPayload {
 
 type Query {
   getPostsByUser(id: Float!): [PostModel!]!
+  fetchTimeline: [PostModel!]!
   getUsers: [User!]!
 }
 
